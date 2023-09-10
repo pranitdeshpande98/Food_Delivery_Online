@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import config
 
@@ -158,3 +159,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL='FoodOnline MarketPlace <foodbakeryonline@gmail.com>'
 
 GOOGLE_API_KEY = 'AIzaSyCpbEOksf4x9TjUkWFtNqpMVcCWm9R0glc'
+
+os.environ['PATH'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
+GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\gdal304.dll')
