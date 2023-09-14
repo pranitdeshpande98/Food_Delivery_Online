@@ -21,18 +21,18 @@
                                     <table class="table opening_hours" style="width: 500px; border: none !important;">
                                         <tbody>
                                             {% for hour in opening_hours %}
-                                            <tr>
+                                            <tr id="hour-{{hour.id}}">
                                                 <td><b>{{ hour }}</b></td>
                                                 <td>{% if hour.is_closed %}Closed{% else %} {{ hour.from_hour }} - {{ hour.to_hour }} {% endif %}</td>
                                                 <td>
-                                                <a href="#"> Remove </a> </td>
+                                                <a href="#" class="remove_hour" data-url="{% url 'remove_opening_hours' hour.id %}"> Remove </a> </td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                     </table>
                                     <br>
                                     <br>
-                                    <form id="opening-hours">
+                                    <form id="opening_hours">
                                         {% csrf_token %}
                                         <div class="row">
                                             <div class  = "col-md-3">
