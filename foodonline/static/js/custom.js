@@ -95,7 +95,7 @@ $(document).ready(function(){
                     $('#qty-'+food_id).html(response.qty);
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
                     )
                 }
@@ -134,7 +134,7 @@ $(document).ready(function(){
                     $('#qty-'+food_id).html(response.qty);
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
                     )
                     if(window.location.pathname == '/cart/'){
@@ -164,7 +164,7 @@ $(document).ready(function(){
                     swal(response.status,response.message,'success')
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
                     )
                     removeCartItem(0,cart_id)
@@ -191,11 +191,16 @@ $(document).ready(function(){
     }
 
     // apply cart amounts
-    function applyCartAmounts(subtotal, tax, grand_total){
+    function applyCartAmounts(subtotal, tax_dict, grand_total){
         if(window.location.pathname == '/cart/'){
             $('#subtotal').html(subtotal)
-            $('#tax').html(tax)
             $('#total').html(grand_total)
+
+            for(key1 in tax_dict){
+                for(key2 in tax_dict[key1]){
+                    $('#tax-'+key1).html(tax_dict[key1][key2])
+                }
+            }
         }
     }
 
