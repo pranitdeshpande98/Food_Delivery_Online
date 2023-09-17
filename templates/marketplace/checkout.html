@@ -18,7 +18,57 @@
                                     <div class="menu-itam-holder">
 
                                         <div id="menu-item-list-6272" class="menu-itam-list">
-                                
+                                            <form action="#" method="POST">
+                                                {% csrf_token %}
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        First Name : {{ form.first_name }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        Last Name : {{ form.last_name }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        Phone Number : {{ form.phone }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        Email Address : {{ form.email }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-12 col-sm-12 col-lg-12">
+                                                        Address : {{ form.address }}
+                                                        </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        Country : {{ form.country }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        State : {{ form.state }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        City : {{ form.city }}
+                                                    </div>
+
+                                                    <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                                        Pin Code : {{ form.pin_code }}
+                                                    </div>
+                                                </div>
+
+                                            
                                            
                                         </div>
                                     </div>
@@ -39,6 +89,40 @@
                             <div class="tab-content">
                                 <div id="home" class="tab-pane in active">
                                     <div class="menu-itam-holder">
+
+                                        <div id="menu-item-list-6272" class="menu-itam-list">
+                                            
+                                            <ul>
+                                                {% if cart_items %}
+                                                {% for item in cart_items %}
+                                                <li id = "cart-item-{{item.id}}">
+                                                    <div class="image-holder"><img src="{{item.fooditem.image.url}}" alt=""></div>
+                                                    <div class="text-holder">
+                                                        <h6>{{ item.fooditem }}</h6>
+                                                        <span>{{ item.fooditem.description }}</span>
+                                                        <a href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
+                                                    </div>
+
+                                                    <div class="quantity" style="display: inline-block; position: absolute; top: 50%; transform: translateY(-50%); margin-top: -10px;">
+                                                        <span>{{ item.quantity }} QTY</span>
+                                                    </div>
+                                                    <div class="price-holder">
+                                                        <span class="price">$ {{item.fooditem.price}}</span>
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+
+                                                {% else %}
+                                                <div class="text-center p-5">
+                                                    <h3>
+                                                        Cart is Empty
+                                                    </h3>
+                                                </div>
+                                                {% endif %}
+                                            </ul>
+                                           
+                                        </div>
+
                                         <div>
                                             <ul>
                                                 <li style="list-style-type: none;">
@@ -69,10 +153,13 @@
                                                     </span>
                                                 </li>
 
-                                                <a href = "{% url 'checkout' %}" class="btn btn-danger w-50 p-2 mt-3 ml-5">
-                                                    PROCEED TO CHECKOUT
-                                                </a>
+                                                <button type="submit" class="btn btn-danger w-50 p-2 mt-3 ml-5">
+                                                    PLACE ORDER
+                                                </button>
                                             </ul>
+                                        </form>
+                                            </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
