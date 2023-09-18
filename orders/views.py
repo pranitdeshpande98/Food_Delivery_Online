@@ -73,6 +73,6 @@ def payments(request):
         order.payment = payment
         order.is_ordered = True
         order.save()
-        return HttpResponse('Saved!')
+        
 
     return HttpResponse('Payments View')
