@@ -95,8 +95,10 @@
                                                         <span id = "total">{{ grand_total }}</span>
                                                     </span>
                                                 </li>
-<!---Paypal checkout button-->
+                                        <!---Paypal checkout button-->
+                                                {% if order.payment_method == 'PayPal' %}
                                                 <div id="paypal-button-container">
+                                                {% endif %}
 
                                                 </div>
                                             </ul>
@@ -183,5 +185,4 @@
                 }
 
     </script>
-
 {% endblock %}
