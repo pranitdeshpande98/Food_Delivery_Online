@@ -16,10 +16,12 @@
                         </div>
 
                         <div class="text-holder">
-                            <span class="restaurant-title">Pranit Deshpande</span>
+                            <span class="restaurant-title">{{ user.first_name }} {{ user.last_name }}</span>
                             <div class="text">
-                                <i class="icon-location"></i>
-                                <p>+1 667-464-5415</p>
+                                <i class="icon-phone"></i>
+                                <p>{{ user.phone_number }}</p>
+                                <i class="icon-envelope"></i>
+                                <p>{{ user.email }}</p>
                             </div>
                         </div>
                     </div>
