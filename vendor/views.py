@@ -5,6 +5,7 @@ from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
 from django.contrib import messages
 from menu.forms import CategoryForm, FoodItemForm
+from orders.models import Order, OrderedFood
 from vendor.forms import VendorForm, OpeningHourForm
 from vendor.models import OpeningHour, Vendor
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -222,3 +223,15 @@ def remove_opening_hours(request,pk=None):
             hour.delete()
             return JsonResponse({'status':'success','id':pk})
 
+def order_detail(request,order_number):
+    try:
+        order = Order.objects.get(order_number=order_number,is_ordered=True)
+        ordered_food = OrderedFood.objects.filter(order=order,fooditem__vendor=get_vendor(request))
+        context = {
+            'order' : order,
+            'ordered_food' : ordered_food,
+        }
+
+    except:
+        return redirect('vendor') 
+    return render(request,'vendor/order_detail.html',context)
