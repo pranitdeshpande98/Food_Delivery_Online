@@ -1,9 +1,11 @@
+import json
 from django.db import models
 from django.db import models
 from accounts.models import User
 from menu.models import FoodItem
 from vendor.models import Vendor
 
+requestobject = ''
 # Create your models here.
 class Payment(models.Model):
     PAYMENT_METHOD = (
@@ -59,6 +61,21 @@ class Order(models.Model):
     
     def order_placed_to(self):
         return ", ".join([str(i) for i in self.vendors.all()])
+    
+    def get_total_by_vendor(self):
+        vendor = Vendor.objects.get(user=requestobject.user)
+        if self.total_data:
+            total_data = json.loads(self.total_data)
+            data = total_data.get(str(vendor.id))
+            subtotal = 0
+            tax = 0
+            tax_dict = {}
+            for key,val in data.items():
+                subtotal += float(key)
+                val = json.loads(val)
+                tax_dict.update(val)
+
+        return vendor
 
     def __str__(self):
         return self.order_number
