@@ -47,8 +47,10 @@ def registerUser(request):
             user.save()
 
             # Send verification email
-            send_verification_email(request,user)
-            messages.success(request,'Your account has been registered successfully!')
+            mail_subject = 'Please activate your account'
+            email_template = 'accounts/emails/account_verification_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
+            messages.success(request, 'Your account has been registered sucessfully!')
             return redirect('registerUser')
         else:
             print(form.errors)
@@ -86,11 +88,12 @@ def registerVendor(request):
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
-            send_verification_email(request,user)
-            messages.success(request,'Your account has been registered successfully! Please wait for the approval')
+             # Send verification email
+            mail_subject = 'Please activate your account'
+            email_template = 'accounts/emails/account_verification_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
+            messages.success(request, 'Your account has been registered sucessfully! Please wait for the approval.')
             return redirect('registerVendor')
-
-
         else:
             print(form.errors)
     else:
